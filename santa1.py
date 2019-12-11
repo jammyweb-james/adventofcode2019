@@ -2,6 +2,38 @@
 
 import numpy as np
 
+def meetsCrit(num):
+    meets = False
+    numString = "{}".format(num)
+    d = numString[0]
+    onRun = False
+    foundDouble = False
+    for i in numString[1:]:
+        if i < d:
+            return False
+        if i == d and onRun == False:
+            meets = True
+            onRun = True
+        elif i == d and onRun == True:
+            meets = False
+        if i != d and meets == True:
+            foundDouble = True
+            onRun = False
+        elif i != d and meets == False:
+            onRun = False
+        d = i
+    return meets or foundDouble
+
+def day4():
+    print("Day 4")
+    numMeets = 0
+    for num in range(387638,919123):
+        if meetsCrit(num):
+            numMeets += 1
+    print(numMeets)
+
+# day4()
+
 def traceWire(path, ins):
     x = 0
     y = 0
@@ -69,9 +101,6 @@ def findCrosses(path, ins):
             y = y - distance
     return crosses
             
-            
-
-
 def findsmallestmanhat(crosses):
     minman = 9999999
     for cross in crosses[1:]:
@@ -104,7 +133,7 @@ def day3():
     print(minsteps)
     print("done")
     
-day3()
+# day3()
 
 
 def rec_fuel(module):
